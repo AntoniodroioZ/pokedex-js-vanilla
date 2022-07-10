@@ -1,0 +1,147 @@
+:root {
+    --pokecolor-rock: #B69E31;
+    --pokecolor-rock-light: #F0EFEF;
+    --pokecolor-rock-filter: invert(83%) sepia(34%) saturate(402%) hue-rotate(7deg) brightness(86%) contrast(84%);
+
+
+    --pokecolor-ghost: #70559B;
+    --pokecolor-ghost-light: #e2ddeb;
+    --pokecolor-ghost-filter: invert(46%) sepia(12%) saturate(1498%) hue-rotate(221deg) brightness(91%) contrast(89%);
+
+
+    --pokecolor-steel: #B7B9D0;
+    --pokecolor-steel-light: #f1f1f6;
+    --pokecolor-steel-filter: invert(89%) sepia(13%) saturate(541%) hue-rotate(199deg) brightness(84%) contrast(99%);
+
+    --pokecolor-water: #6493EB;
+    --pokecolor-water-light: #e3ebfb;
+    --pokecolor-water-filter: invert(63%) sepia(10%) saturate(4996%) hue-rotate(193deg) brightness(99%) contrast(88%);
+
+    --pokecolor-grass: #74CB48;
+    --pokecolor-grass-light: #e3f5da;
+    --pokecolor-grass-filter: invert(100%) sepia(26%) saturate(5769%) hue-rotate(38deg) brightness(102%) contrast(63%);
+
+    --pokecolor-psychic: #FB5584;
+    --pokecolor-psychic-light: #fedde6;
+    --pokecolor-psychic-filter: invert(57%) sepia(74%) saturate(1808%) hue-rotate(305deg) brightness(99%) contrast(99%);
+
+    --pokecolor-ice: #9AD6DF;
+    --pokecolor-ice-light: #e6f7f9;
+    --pokecolor-ice-filter: invert(84%) sepia(30%) saturate(396%) hue-rotate(160deg) brightness(96%) contrast(95%);
+
+    --pokecolor-dark: #75574C;
+    --pokecolor-dark-light: #e2dcd7;
+    --pokecolor-dark-filter: invert(41%) sepia(8%) saturate(891%) hue-rotate(332deg) brightness(94%) contrast(83%);
+
+    --pokecolor-fairy: #E69EAC;
+    --pokecolor-fairy-light: #f0e6f0;
+    --pokecolor-fairy-filter: invert(79%) sepia(32%) saturate(344%) hue-rotate(278deg) brightness(97%) contrast(85%);
+
+    --pokecolor-normal: #AAA67F;
+    --pokecolor-normal-light: #f1f1f6;
+    --pokecolor-normal-filter: invert(70%) sepia(24%) saturate(297%) hue-rotate(16deg) brightness(95%) contrast(89%);
+
+    --pokecolor-fighting: #C12239;
+    --pokecolor-fighting-light: #f1d9d9;
+    --pokecolor-fighting-filter: invert(57%) sepia(60%) saturate(4995%) hue-rotate(320deg) brightness(76%) contrast(88%);
+
+    --pokecolor-flying: #A891EC;
+    --pokecolor-flying-light: #e6e6f0;
+    --pokecolor-flying-filter: invert(79%) sepia(3%) saturate(3292%) hue-rotate(212deg) brightness(94%) contrast(89%);
+
+    --pokecolor-poison: #A43E9E;
+    --pokecolor-poison-light: #e6d9e6;
+    --pokecolor-poison-filter: invert(49%) sepia(12%) saturate(2735%) hue-rotate(251deg) brightness(82%) contrast(84%);
+
+    --pokecolor-ground: #DEC16B;
+    --pokecolor-ground-light: #f1e6d9;
+    --pokecolor-ground-filter: invert(74%) sepia(17%) saturate(1019%) hue-rotate(12deg) brightness(86%) contrast(82%);
+
+    --pokecolor-bug: #A7B723;
+    --pokecolor-bug-light: #edf1d3;
+    --pokecolor-bug-filter: invert(81%) sepia(63%) saturate(479%) hue-rotate(13deg) brightness(83%) contrast(89%);
+
+
+    --pokecolor-fire: #F57D31;
+    --pokecolor-fire-light: #FDE5D6;
+    --pokecolor-fire-filter: invert(82%) sepia(28%) saturate(7493%) hue-rotate(329deg) brightness(101%) contrast(94%);
+
+    --pokecolor-electric: #F9CF30;
+    --pokecolor-electric-light: #fef5d6;
+    --pokecolor-electric-filter: invert(78%) sepia(99%) saturate(389%) hue-rotate(335deg) brightness(102%) contrast(96%);
+
+    --pokecolor-dragon: #7037FF;
+    --pokecolor-dragon-light: #e6d9e6;
+    --pokecolor-dragon-filter: invert(48%) sepia(43%) saturate(5462%) hue-rotate(232deg) brightness(95%) contrast(94%);
+
+
+
+
+    --main-color: var(--pokecolor-grass-light);
+    --main-color-light: #e3f5da;
+    --main-filter: invert(100%) sepia(26%) saturate(5769%) hue-rotate(38deg) brightness(102%) contrast(63%);
+
+    --dark-gray: #212121;
+    --medium-gray: #4d4c4c;
+    --light-gray: #E0E0E0;
+    --white: #FFFFFF;
+    --background: #F7F7F7;
+
+    --pokelist-width: 500px;
+    --form-height: 250px;
+
+    --poppins: 'Poppins', sans-serif;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+body{
+    background-color: rgb(74, 82, 90);
+}
+
+input[type=text]{
+    background-color: var(--main-color);
+    color: white;
+    min-width: 100%;
+    border-radius: 1rem;
+    outline: none;
+    border:0px solid black;
+    text-align: center;
+    color: var(--medium-gray);
+    margin: 1rem 0rem;
+    /* padding: .5rem; */
+    font-size: 1.4rem;
+}
+
+.button-search{
+    background-color: var(--pokecolor-grass);
+    border-radius: 1rem;
+    border: var(--pokecolor-grass);
+    width: 10rem;
+    height: 2rem;
+}
+
+.space-card-top{
+    margin-top: 1.5rem;
+}
+
+.content-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poke-card-space{
+    padding:1rem;
+    border-radius: 2rem;
+}
+
+
+
+.poke-card-list{
+    font-size: 1.3rem;
+}
+
+.tgrass{
+    background-color: var(--pokecolor-grass);
+}
