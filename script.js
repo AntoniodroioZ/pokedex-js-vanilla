@@ -13,10 +13,21 @@ document.addEventListener("keyup", e=>{
         // searchPokeResults = pokemonListFinal.filter(pokemon => pokemon.id.includes(e.target.value));
         searchPokeResults = pokemonListFinal.filter(pokemon => pokemon.name.includes(e.target.value.toLowerCase()));
         document.getElementById("pokemon-list").innerHTML = searchPokeResults.map(pokemon => innerPoke(pokemon)).join("");
-        console.log(searchPokeResults);
+        // console.log(searchPokeResults);
     }
 });
 
+class Pokemon {
+    constructor(image,name,types,weight,height,abilities,stats){
+        this.image = image;
+        this.name = name;
+        this.types = types;
+        this.weight = weight;
+        this.height = height;
+        this.abilities = abilities;
+        this.stats = stats;
+    }
+}
 
 const functionPokeList = () =>{
     fetch('https://pokeapi.co/api/v2/pokemon?limit=1154')
@@ -46,16 +57,39 @@ const savePokeList = (data) =>{
     });
 
     document.getElementById("pokemon-list").innerHTML = pokemonListFinal.map(pokemon => innerPoke(pokemon)).join("");
-    console.log(data.results);
+    // console.log(data.results);
 
     pokemonListContent = document.getElementById("pokemon-list")
     return pokemonListFinal;
 }
 
 const dataPoke = (id) =>{
-    console.log(id);
+    fetch('https://pokeapi.co/api/v2/pokemon/'+id)
+    .then(data => data.json())
+    .then(response => savedataPoke(response,id));
+    
+}
+
+
+const savedataPoke = (data,id) =>{
+    pokemon = new Pokemon(
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/'+id+'.png',
+        data.forms[0].name,
+        [data.types],
+        data.weight,
+        data.height,
+        [data.abilities],
+        [data.stats[0].base_stat,data.stats[1].base_stat,data.stats[2].base_stat,data.stats[3].base_stat,data.stats[4].base_stat,data.stats[5].base_stat]
+    );
+    console.log(pokemon);
+    console.log(data);
+    // document.getElementById("pokeDataCard").innerHTML = generatePokeDataCard();
 
 }
+
+
+
+
 
 functionPokeList();
 
