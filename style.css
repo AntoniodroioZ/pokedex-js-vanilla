@@ -275,7 +275,7 @@ input[type=text]{
 }
 
 .card-img-top{
-    width: 18rem;
+    width: calc(100% - 10rem);
 }
 .break-991{
 
@@ -336,7 +336,7 @@ ul{
     max-width: 4rem;
 }
 .abilities-name{
-    height: 100%;
+    width: 75%;
 }
 .progress-bar{
     display: flex;
@@ -357,6 +357,23 @@ ul{
     -webkit-box-shadow: 0px 0px 10px 1px var(--main-color); 
     box-shadow: 0px 0px 10px 1px var(--main-color);
 }
+.scape{
+    width: 2rem;
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    left: calc(100% - 3rem);
+}
+.modal-mobile{
+
+}
+.invisible{
+    /* display: none; */
+}
+.invisible-card{
+    display: none;
+}
+
 @media (max-width: 991px) {
     .break-991{
         min-width: 100%;
@@ -364,7 +381,25 @@ ul{
     .max-height-card{
         height: calc(100vh - 19rem);
     }
-    /* .card-data-pokemon{
+    .abilities-name{
+        width: 100%;
+    }
+    .invisible{
         display: none;
-    } */
+    }
+    .card-img-top{
+        width: calc(100% - 1rem);
+    }
+    .modal-mobile{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        /* margin-top: 1rem; */
+        height: calc(100vh - 1rem);
+        
+    }
+    
+    .card-data-pokemon{
+        display: none;
+    }
 }

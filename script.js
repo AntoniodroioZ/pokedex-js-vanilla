@@ -1,3 +1,10 @@
+// service worker
+if('serviceWorker'in navigator){
+    navigator.serviceWorker.register('./sw.js')
+    .then(reg=>console.log('Registro de Service Worker existoso', reg))
+    .then(err=>console.warn('Error al registrar el SW',err));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
       if(e.keyCode == 13) {
@@ -40,8 +47,8 @@ const innerPoke = (pokemon) =>{
     //     console.log("xd");
     // }
     return(
-        '<div class="col pokemon" onclick="dataPoke('+ id +')">'+
-            '<div class="content-center card text-white space-card-top poke-card-list bg-card grass">'+
+        '<div class="col pokemon" >'+
+            '<div class="content-center card text-white space-card-top poke-card-list bg-card "onclick="dataPoke('+ id +')">'+
                 '<img class="" src="'+ image +'" alt="qwe" style="width: 75px;">'+
                 '<p>'+ name +'</p>'+
             '</div>'+
@@ -69,6 +76,7 @@ const dataPoke = (id) =>{
     fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     .then(data => data.json())
     .then(response => savedataPoke(response,id));
+    console.log(pokemon.types[0])
     
 }
 
@@ -92,6 +100,13 @@ const savedataPoke = (data,id) =>{
     document.getElementById("poke-height-card").innerHTML = calculateAbout(2);
     document.getElementById("poke-abilities-card").innerHTML = generatePokeAbilities();
     document.getElementById("poke-stats-card").innerHTML = generatePokeCharts();
+    document.body.className = pokemon.types[0];
+    // document.getElementById("left-division").className = "invisible";
+    document.getElementById("pokeDataCardInitial").classList.add("invisible-card");
+    document.getElementById("pokeDataCard").classList.remove("invisible-card");
+    document.getElementById("scape").classList.remove("invisible-card");
+    document.getElementById("right-division").classList.remove("card-data-pokemon");
+    document.getElementById("left-division").classList.add("card-data-pokemon");
 }
 
 const getPokeTypes = (data) =>{
@@ -120,7 +135,7 @@ const calculateAbout = (data) =>{
         result = parseInt(pokemon.weight)/10;
         return(
         '<div class="poke-type '+ pokemon.types[0] +' row">'+
-            '<h4 class="poke-type-text"><i class="fa fa-weight-hanging"></i>'+ result +'KG</h4>'+
+            '<h4 class="poke-type-text"><i class="fa fa-weight-hanging"></i> '+ result +' KG</h4>'+
             '<p class="col content-center poke-type-text">Weight</p>'+
         '</div>'
         );
@@ -130,8 +145,8 @@ const calculateAbout = (data) =>{
         result = parseInt(pokemon.height)/10;
         return(
         '<div class="poke-type '+ pokemon.types[0] +' row">'+
-            '<h4 class="poke-type-text"><i class="fa fa-ruler"></i>'+ result +'KG</h4>'+
-            '<p class="col content-center poke-type-text">Weight</p>'+
+            '<h4 class="poke-type-text"><i class="fa fa-ruler"></i> '+ result +' M</h4>'+
+            '<p class="col content-center poke-type-text">Height</p>'+
         '</div>'
         );
     }
@@ -147,7 +162,7 @@ const getPokeAbilities = (data) =>{
 const generatePokeAbilities = () =>{
     var pokeAbilities = '';
     pokemon.abilities.forEach(abilities => pokeAbilities = pokeAbilities +
-        '<div class="col">'+
+        '<div class="col  content-center">'+
             '<div class="poke-type '+ pokemon.types[0] +' row abilities-name">'+                         
                 '<p class="col content-center poke-type-text">'+ abilities +'</p>'+
             '</div>'+
@@ -173,6 +188,14 @@ const calcStatChart = (number) =>{
     }else{
         return result;
     }
+}
+
+const ocultElement = () =>{
+    document.getElementById("pokeDataCardInitial").classList.remove("invisible-card");
+    document.getElementById("pokeDataCard").classList.add("invisible-card");
+    document.getElementById("scape").classList.add("invisible-card");
+    document.getElementById("right-division").classList.add("card-data-pokemon");
+    document.getElementById("left-division").classList.remove("card-data-pokemon");
 }
 
 functionPokeList();
