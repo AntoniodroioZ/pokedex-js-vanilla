@@ -333,7 +333,10 @@ ul{
     width: 100%;
 }
 .number-stat{
-    max-width: 3.2rem;
+    max-width: 4rem;
+}
+.abilities-name{
+    height: 100%;
 }
 .progress-bar{
     display: flex;
