@@ -1,9 +1,9 @@
-// service worker
-if('serviceWorker'in navigator){
-    navigator.serviceWorker.register('./sw.js')
-    .then(reg=>console.log('Registro de Service Worker existoso', reg))
-    .then(err=>console.warn('Error al registrar el SW',err));
-}
+// // service worker
+// if('serviceWorker'in navigator){
+//     navigator.serviceWorker.register('./sw.js')
+//     .then(reg=>console.log('Registro de Service Worker existoso', reg))
+//     .then(err=>console.warn('Error al registrar el SW',err));
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
@@ -43,11 +43,8 @@ const functionPokeList = () =>{
 const innerPoke = (pokemon) =>{
     
     const { id, name, image } = pokemon;
-    // if(parseInt(id)==718){
-    //     console.log("xd");
-    // }
     return(
-        '<div class="col pokemon" >'+
+        '<div class="col pokemon" id="pokeList'+ id +'">'+
             '<div class="content-center card text-white space-card-top poke-card-list bg-card "onclick="dataPoke('+ id +')">'+
                 '<img class="" src="'+ image +'" alt="qwe" style="width: 75px;">'+
                 '<p>'+ name +'</p>'+
@@ -76,7 +73,7 @@ const dataPoke = (id) =>{
     fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     .then(data => data.json())
     .then(response => savedataPoke(response,id));
-    console.log(pokemon.types[0])
+    // console.log(pokemon.types[0])
     
 }
 
@@ -91,8 +88,16 @@ const savedataPoke = (data,id) =>{
         getPokeAbilities(data),
         [data.stats[0].base_stat,data.stats[1].base_stat,data.stats[2].base_stat,data.stats[3].base_stat,data.stats[4].base_stat,data.stats[5].base_stat]
     );
-    console.log(pokemon);
-    console.log(data);
+    // console.log(pokemon);
+    // console.log(data);
+    var elemento = document.getElementById("favorite");
+    elemento.setAttribute("data-pokeID",id);
+    elemento.setAttribute("data-pokeName",pokemon.name);
+    if(localStorage.getItem(pokemon.name)==null){
+        document.getElementById("star-favorite-status").classList.remove("star-favorite-on");
+    }else{
+        document.getElementById("star-favorite-status").classList.add("star-favorite-on");
+    }
     document.getElementById("poke-image-card").src = pokemon.image;
     document.getElementById("poke-name-card").innerHTML = pokemon.name;
     document.getElementById("poke-type-card").innerHTML = generatePokeTypes();
@@ -105,6 +110,7 @@ const savedataPoke = (data,id) =>{
     document.getElementById("pokeDataCardInitial").classList.add("invisible-card");
     document.getElementById("pokeDataCard").classList.remove("invisible-card");
     document.getElementById("scape").classList.remove("invisible-card");
+    document.getElementById("favorite").classList.remove("invisible-card");
     document.getElementById("right-division").classList.remove("card-data-pokemon");
     document.getElementById("left-division").classList.add("card-data-pokemon");
 }
@@ -175,7 +181,7 @@ const generatePokeCharts = () =>{
     var pokeCharts = '';
     for (let i = 0; i < pokemon.stats.length; i++) {
         pokeCharts = pokeCharts +
-        '<li class="row content-center"><span class="col number-stat">'+ pokemon.stats[i] +'</span><div class="base-bar col '+ pokemon.types[0] +'"><span class="progress-bar '+ pokemon.types[0] +'" style="width: '+ calcStatChart(pokemon.stats[i]) +'%;"></span></div></li>'
+        '<li class="row content-center"><span class="col number-stat '+ pokemon.types[0] +'">'+ pokemon.stats[i] +'</span><div class="base-bar col '+ pokemon.types[0] +'"><span class="progress-bar '+ pokemon.types[0] +'" style="width: '+ calcStatChart(pokemon.stats[i]) +'%;"></span></div></li>'
     }
     
     return pokeCharts;
@@ -194,6 +200,7 @@ const ocultElement = () =>{
     document.getElementById("pokeDataCardInitial").classList.remove("invisible-card");
     document.getElementById("pokeDataCard").classList.add("invisible-card");
     document.getElementById("scape").classList.add("invisible-card");
+    document.getElementById("favorite").classList.add("invisible-card");
     document.getElementById("right-division").classList.add("card-data-pokemon");
     document.getElementById("left-division").classList.remove("card-data-pokemon");
 }
@@ -201,5 +208,82 @@ const ocultElement = () =>{
 functionPokeList();
 
 
+const setFavorite = () =>{
+    var elemento = document.getElementById("favorite");
+    id = elemento.getAttribute("data-pokeID");
+    pokeName =  elemento.getAttribute("data-pokeName");
+    htmlPoke = document.getElementById("pokeList"+id).innerHTML;
+    // arrayStorage = localStorage;
+    // console.log(localStorage.getItem(pokeName));
+    if(localStorage.getItem(pokeName)){
+        localStorage.removeItem(pokeName)
+        document.getElementById("star-favorite-status").classList.remove("star-favorite-on");
+    }else{
+        if(id != ""){
+            localStorage.setItem(pokeName,htmlPoke)
+            document.getElementById("star-favorite-status").classList.add("star-favorite-on");
+        }
+    }
+    // elemento.setAttribute("data-pokeID",123);
+    // console.log(elemento.getAttribute("data-pokeID"));
+}
 
-// Busqueda
+const showFavorites = () =>{
+    var elements = [];
+    for(var x = 0; x < localStorage.length; x++) {
+        elements.push(localStorage.getItem(localStorage.key(x)));
+    }
+    document.getElementById("favorite-pokemon-list").innerHTML = elements.map(pokemon => innerFavList(pokemon)).join("");
+    buttonDownload = document.getElementById("download-button");
+    if(localStorage.length > 0){
+        document.getElementById("text-empty").innerHTML = "";
+        buttonDownload.disabled = false
+    }else{
+        document.getElementById("text-empty").innerHTML = "Add your favorites pokemons to show in this list";
+        buttonDownload.disabled = true
+    }
+    // return elements
+}
+const innerFavList = (pokemon) =>{
+    return(
+        '<div class="col pokemon" data-bs-dismiss="modal">'+
+        pokemon+
+        '</div>'
+    );
+}
+const downloadJSON = () =>{
+    var storageObj = localStorage;
+    var fileName = 'favorites.json'
+    // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageObj));
+    var fileToSave = new Blob([JSON.stringify(storageObj)], {
+    // var fileToSave = new Blob([storageObj], {   
+        type: 'application/json'
+    });
+    saveAs(fileToSave,fileName);
+}
+
+
+var file;
+document.getElementById('inputFile').addEventListener('change', function() {
+    file = new FileReader();
+    file.onload = () => {
+        document.getElementById('output').textContent = "If you want save this data, press upload to continue";
+    }
+    file.readAsText(this.files[0]);
+});
+
+const loadFavorites = () =>{
+    arrayFavorites = JSON.parse(file.result);
+    console.log(arrayFavorites);
+    tamFav = Object.keys(arrayFavorites);
+    tamFav.forEach(element =>{
+        console.log(arrayFavorites[element]);
+        localStorage.setItem(element,arrayFavorites[element]);
+    })
+}
+
+const eraseFavorites = ()=>{
+    document.getElementById("star-favorite-status").classList.remove("star-favorite-on");
+    localStorage.clear();
+    showFavorites();
+}

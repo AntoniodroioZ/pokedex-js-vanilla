@@ -27,6 +27,7 @@
     <title>Pokédex</title>
 </head>
 <body class="grass">
+  
     <div class="container">
         <!-- Busqueda y lista de pokemon -->
         
@@ -53,6 +54,9 @@
             <div class="col content-center modal-mobile card-data-pokemon" id="right-division">
                 <div class="col  content-center">
                     <div class="card bg-dark text-white poke-card-space abilities-name">
+                        <div class="favorite invisible-card" id="favorite" data-pokeID="" data-pokeName="" onclick="setFavorite()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Press to add favorites">
+                            <i class="fa fa-star star-favorite-on" id="star-favorite-status"></i>
+                        </div>
                         <div class="scape invisible-card" id="scape" onclick="ocultElement()">
                             <img src="./img/circle-xmark-regular.svg" alt="">
                         </div>
@@ -119,7 +123,7 @@
                             <h4>Stats</h4>
                             <div class="poke-stats row row-cols-2">
                                 <div class="col-2">
-                                    <ul class="list-stats-names grass">
+                                    <ul class="list-stats-names">
                                         <li>HP</li>
                                         <li>ATK</li>
                                         <li>DEF</li>
@@ -146,10 +150,69 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <a class="btn-flotante" data-bs-toggle="modal" data-bs-target="#modalFavorites" onclick="showFavorites()">Show Favorites</a>
+                <!-- <a href="#miModal">Abrir Modal</a> -->
+                
+            </div>
         </div>
     </div>
-
-
-    <script src="./script.js"></script>
+    <!-- Modal -->
+  <div class="modal fade " id="modalFavorites" tabindex="-1" aria-labelledby="modalFavoritesLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalFavoritesLabel">Favorites</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="max-height-card" >
+                <h1 id="text-empty"></h1>
+                <div class="row row-cols-2" id="favorite-pokemon-list">
+                    
+                    <!-- <div class="col pokemon" id="pokeList2"><div class="content-center card text-white space-card-top poke-card-list bg-card " onclick="dataPoke(2)"><img class="" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/2.png" alt="qwe" style="width: 75px;"><p>ivysaur</p></div></div>
+                    <div class="col pokemon" id="pokeList2"><div class="content-center card text-white space-card-top poke-card-list bg-card " onclick="dataPoke(2)"><img class="" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/2.png" alt="qwe" style="width: 75px;"><p>ivysaur</p></div></div> -->
+                </div>  
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" onclick="eraseFavorites()">Erase all</button>
+          <button type="button" class="btn btn-success" data-bs-target="#modalUpload" data-bs-toggle="modal" data-bs-dismiss="modal">Upload file</button> 
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="downloadJSON()" id="download-button">Download favorites</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- upload -->
+  <div class="modal fade" id="modalUpload" tabindex="-1" aria-labelledby="modalUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalUploadLabel">Upload file</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h3>Select a file to load your favorites pokemon</h3>
+            <!-- <input type="file" name="inputFile" id="inputFile">
+            <br>
+            <pre id="output"></pre> -->
+            <input type="file" name="inputFile" id="inputFile">
+            <br>
+            <pre id="output"></pre>
+  
+            <!-- <script type="text/javascript">
+            
+            </script> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="loadFavorites()">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="./libraries/FileSaver.js"></script>
+    <script  type="text/javascript" src="./script.js"></script>
 </body>
 </html>
