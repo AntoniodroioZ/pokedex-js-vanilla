@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v1_cache_programador_fitness',
+const CACHE_NAME = 'v1_pokedex',
   urlsToCache = [
     './',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
